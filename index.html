@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>剪刀石頭布遊戲</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+        button {
+            padding: 20px; /* 調整內邊距以增加大小 */
+            font-size: 20px;
+            margin: 10px;
+            border: none; /* 去掉邊框 */
+            border-radius: 50%; /* 設置圓形 */
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer; /* 改變鼠標樣式 */
+        }
+        button:hover {
+            background-color: #4CAF50; /* 改變背景顏色 */
+            color: white; /* 改變文字顏色 */
+            transform: scale(1.1); /* 放大效果 */
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .win {
+            color: green; /* 贏的顏色 */
+        }
+        .draw {
+            color: orange; /* 平手的顏色 */
+        }
+        .lose {
+            color: red; /* 輸的顏色 */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>剪刀石頭布遊戲</h1>
+    <button onclick="play('剪刀')">剪刀</button>
+    <button onclick="play('石頭')">石頭</button>
+    <button onclick="play('布')">布</button>
+
+    <div id="result"></div> <!-- 用於顯示結果 -->
+
+    <script>
+        function play(userChoice) {
+            const choices = ['剪刀', '石頭', '布'];
+            const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+            let resultText;
+            let resultClass;
+
+            if (userChoice === computerChoice) {
+                resultText = "平局！";
+                resultClass = "draw";
+            } else if (
+                (userChoice === '剪刀' && computerChoice === '布') ||
+                (userChoice === '石頭' && computerChoice === '剪刀') ||
+                (userChoice === '布' && computerChoice === '石頭')
+            ) {
+                resultText = "你贏了！";
+                resultClass = "win";
+            } else {
+                resultText = "你輸了！";
+                resultClass = "lose";
+            }
+
+            // 更新結果顯示
+            document.getElementById('result').innerHTML = 
+                '你選擇了: ' + userChoice + '<br>' +
+                '電腦選擇了: ' + computerChoice + '<br>' +
+                resultText;
+            document.getElementById('result').className = resultClass; // 設置結果類別
+        }
+    </script>
+
+</body>
+</html>
