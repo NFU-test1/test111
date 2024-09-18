@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>剪刀石頭布遊戲</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            background-color: #f0f0f0;
+            border: 2px solid #000;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4CAF50;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        #result.win {
+            color: green;
+        }
+
+        #result.lose {
+            color: red;
+        }
+
+        #result.tie {
+            color: gray;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>剪刀石頭布遊戲</h1>
+    <button id="rock">石頭</button>
+    <button id="paper">布</button>
+    <button id="scissors">剪刀</button>
+    <p id="result">結果會顯示在這裡</p>
+</body>
+<script>
+    const choices = ['rock', 'paper', 'scissors'];
+
+    document.getElementById('rock').addEventListener('click', () => playGame('rock'));
+    document.getElementById('paper').addEventListener('click', () => playGame('paper'));
+    document.getElementById('scissors').addEventListener('click', () => playGame('scissors'));
+
+    function playGame(playerChoice) {
+        const computerChoice = choices[Math.floor(Math.random() * 3)];
+        let resultText = '';
+        let resultClass = '';
+
+        if (playerChoice === computerChoice) {
+            resultText = '平手！';
+            resultClass = 'tie';
+        } else if (
+            (playerChoice === 'rock' && computerChoice === 'scissors') ||
+            (playerChoice === 'scissors' && computerChoice === 'paper') ||
+            (playerChoice === 'paper' && computerChoice === 'rock')
+        ) {
+            resultText = '你贏了！';
+            resultClass = 'win';
+        } else {
+            resultText = '你輸了！';
+            resultClass = 'lose';
+        }
+
+        const resultElement = document.getElementById('result');
+        resultElement.innerText = `你選擇了${playerChoice}，電腦選擇了${computerChoice}。${resultText}`;
+
+        // 移除之前的結果類別
+        resultElement.classList.remove('win', 'lose', 'tie');
+        resultElement.classList.add(resultClass); // 動態添加結果類別
+    }
+
+</script>
+
+</html>
